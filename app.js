@@ -14,9 +14,11 @@ if(process.env.REDISTOGO_URL){
 }
 else{
   var client = redis.createClient();
+
+  client.select((process.env.NODE_ENV || 'development').length);
 }
 
-client.select((process.env.NODE_ENV || 'development').length);
+
 
 app.get('/', function(request, response)
 {
