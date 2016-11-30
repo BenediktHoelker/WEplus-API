@@ -18,8 +18,6 @@ else{
   client.select((process.env.NODE_ENV || 'development').length);
 }
 
-
-
 app.get('/', function(request, response)
 {
 	response.send('OK');
@@ -38,6 +36,16 @@ app.post('/cities', urlencode, function(request, response){
     if(error) throw error;
     response.status(201).json(newCity.name);
   });
+});
+
+app.delete('/cities/:name', function(request, response){
+  var city = request.params.name;
+  if(city){
+    client.hdel('cities', city, function(error){
+    if(error) throw error;
+    response.sendStatus(204);
+    });
+  }
 });
 
 module.exports = app;
