@@ -31,13 +31,26 @@ router.route('/')
 
   .post(jsonParser, function (request, response) {
     var submittedDelivery = request.body;
-    if (!submittedDelivery.title || !submittedDelivery.carrier) {
+
+    /**
+    * Create a new ObjectID if object does not exist 
+    * (otherwise mongoose would create _id=null
+    */
+    var query = { _id: submittedDelivery._id };
+    if (!query._id) {
+      query._id = new mongoose.mongo.ObjectID();
+    }
+
+    console.log(query);
+    console.log(submittedDelivery);
+    if (!submittedDelivery.quantity || !submittedDelivery.carrier
+      || !submittedDelivery.supplier) {
       response.sendStatus(400);
       return false;
     }
 
-    Delivery.findOneAndUpdate({_id: submittedDelivery._id}, submittedDelivery, { upsert: true, new: true }, function (err, doc) {
-      if (err) return response.status(500).body({ error: err });
+    Delivery.findOneAndUpdate(query, submittedDelivery, { upsert: true, new: true }, function (err, doc) {
+      if (err) return response.sendStatus(500).body({ error: err });
       return response.json(doc);
     });
   });
