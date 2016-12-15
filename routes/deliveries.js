@@ -2,13 +2,12 @@ var express = require('express');
 var app = express();
 
 var bodyParser = require('body-parser');
-var urlencode = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 // Mongoose connection
+require('../models/delivery.server.model');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
-require('../models/delivery.server.model');
-
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
@@ -18,9 +17,11 @@ app.get('/', function (request, response) {
   response.send('OK');
 });
 
+var Delivery = mongoose.model('Delivery');
+
 router.route('/')
   .get(function (request, response) {
-    var Delivery = mongoose.model('Delivery');
+
     Delivery.find(function (err, deliveries) {
       if (err) return console.error(err);
       console.log(deliveries);
@@ -28,15 +29,16 @@ router.route('/')
     });
   })
 
-  .post(urlencode, function (request, response) {
-    var newCity = request.body;
-    if (!newCity.name || !newCity.description) {
+  .post(jsonParser, function (request, response) {
+    var submittedDelivery = request.body;
+    if (!submittedDelivery.title || !submittedDelivery.carrier) {
       response.sendStatus(400);
       return false;
     }
-    client.hset('cities', newCity.name, newCity.description, function (error) {
-      if (error) throw error;
-      response.status(201).json(newCity.name);
+
+    Delivery.findOneAndUpdate({_id: submittedDelivery._id}, submittedDelivery, { upsert: true, new: true }, function (err, doc) {
+      if (err) return response.status(500).body({ error: err });
+      return response.json(doc);
     });
   });
 
