@@ -11,8 +11,9 @@ app.use(function (request, result, next) {
   next();
 });
 
-
 var deliveries = require('./routes/deliveries');
-app.use('/api/deliveries', deliveries);
+
+//for testing the route has to be '/', for DEV_ENV it has to be '/api/deliveries'
+app.use('/', deliveries);
 
 module.exports = app;

@@ -42,6 +42,4 @@ var DeliverySchema = new Schema({
     }
 });
 
-var Delivery = mongoose.model('Delivery', DeliverySchema);
-
-module.exports = Delivery;
+module.exports = DeliverySchema;

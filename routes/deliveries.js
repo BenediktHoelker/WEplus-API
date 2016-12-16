@@ -1,48 +1,51 @@
-var express = require('express');
-var app = express();
+let express = require('express');
+let app = express();
+let router = express.Router();
 
-var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json();
+let bodyParser = require('body-parser');
+let jsonParser = bodyParser.json();
 
-// Mongoose connection
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-var Delivery = require('../models/delivery.server.model');
+// // Mongoose connection
+// mongoose.connect('mongodb://localhost/test');
+// let db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+let mongoose = require('mongoose');
 
-var router = express.Router();
+let DeliverySchema = require('../models/delivery.server.model');
+
+//Try/Catch block to check whether the model exists
+let Delivery;
+try {
+  Delivery = mongoose.model('Delivery');
+} catch (error) {
+  Delivery = mongoose.model('Delivery', DeliverySchema);
+}
 
 app.get('/', function (request, response) {
   response.send('OK');
 });
-
-mongoose.model('Delivery');
 
 router.route('/')
   .get(function (request, response) {
 
     Delivery.find(function (err, deliveries) {
       if (err) return console.error(err);
-      console.log(deliveries);
       response.json(deliveries);
     });
   })
 
   .post(jsonParser, function (request, response) {
-    var submittedDelivery = request.body;
+    let submittedDelivery = request.body;
 
     /**
     * Create a new ObjectID if object does not exist 
     * (otherwise mongoose would create _id=null
     */
-    var query = { _id: submittedDelivery._id };
+    let query = { _id: submittedDelivery._id };
     if (!query._id) {
       query._id = new mongoose.mongo.ObjectID();
     }
 
-    console.log(query);
-    console.log(submittedDelivery);
     if (!submittedDelivery.quantity || !submittedDelivery.carrier
       || !submittedDelivery.supplier) {
       response.sendStatus(400);
@@ -50,7 +53,7 @@ router.route('/')
     }
 
     Delivery.findOneAndUpdate(query, submittedDelivery, { upsert: true, new: true }, function (err, doc) {
-      if (err) return response.send(500, body({ error: err }));
+      if (err) return response.send(500, ({ error: err }));
       return response.json(doc);
     });
   });
@@ -63,7 +66,7 @@ router.route('/:name')
   })
 
   .delete(function (request, response) {
-    var city = request.params.name;
+    let city = request.params.name;
     if (city) {
       client.hdel('cities', city, function (error) {
         if (error) throw error;
