@@ -5,11 +5,11 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
 // Mongoose connection
-require('../models/delivery.server.model');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+var Delivery = require('../models/delivery.server.model');
 
 var router = express.Router();
 
@@ -17,7 +17,7 @@ app.get('/', function (request, response) {
   response.send('OK');
 });
 
-var Delivery = mongoose.model('Delivery');
+mongoose.model('Delivery');
 
 router.route('/')
   .get(function (request, response) {
@@ -50,7 +50,7 @@ router.route('/')
     }
 
     Delivery.findOneAndUpdate(query, submittedDelivery, { upsert: true, new: true }, function (err, doc) {
-      if (err) return response.sendStatus(500).body({ error: err });
+      if (err) return response.send(500, body({ error: err }));
       return response.json(doc);
     });
   });

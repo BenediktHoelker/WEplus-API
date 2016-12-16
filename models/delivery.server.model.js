@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-
+var DeviationSchema = require('./deviation.server.model');
 /**
  * Delivery Schema
  */
@@ -14,26 +14,13 @@ var DeliverySchema = new Schema({
         type: Date,
         default: Date.now
     },
-    title: {
-        type: String,
-        default: '',
-        trim: true
-    },
     carrier: {
         type: String,
         default: '',
         trim: true,
         required: 'Carrier cannot be blank'
     },
-    supplier: {
-        type: String,
-        default: '',
-        trim: true
-    },
-    quantity: {
-        type: Number,
-        default: ''
-    },
+    deviations: [DeviationSchema],    
     isRegistered: {
         type: Boolean,
         default: false
@@ -41,6 +28,17 @@ var DeliverySchema = new Schema({
     isProcessed: {
         type: Boolean,
         default: false
+    },
+    quantity: {
+        type: Number,
+        default: '',
+        required: 'Quantity cannot be blank'
+    },
+    supplier: {
+        type: String,
+        default: '',
+        trim: true,
+        required: 'Supplier cannot be blank'
     }
 });
 
