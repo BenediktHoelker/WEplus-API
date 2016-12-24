@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var DeviationSchema = require('./deviation.server.model');
+var YardSchema = require('./yard.server.model');
 /**
  * Delivery Schema
  */
@@ -13,6 +14,12 @@ var DeliverySchema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    timeSlotBegin: {
+        type: Date,
+    },
+    timeSlotEnd: {
+        type: Date,
     },
     carrier: {
         type: String,
@@ -39,7 +46,8 @@ var DeliverySchema = new Schema({
         default: '',
         trim: true,
         required: 'Supplier cannot be blank'
-    }
+    },
+    yards: [YardSchema]
 });
 
 module.exports = DeliverySchema;
