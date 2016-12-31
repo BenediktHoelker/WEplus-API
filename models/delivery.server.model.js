@@ -6,7 +6,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var DeviationSchema = require('./deviation.server.model');
-var YardSchema = require('./yard.server.model');
+var YardDeliverySchema = require('./yard-delivery.server.model');
 /**
  * Delivery Schema
  */
@@ -47,7 +47,7 @@ var DeliverySchema = new Schema({
         trim: true,
         required: 'Supplier cannot be blank'
     },
-    yards: [YardSchema]
+    yardDeliveries: [YardDeliverySchema]
 });
-
+mongoose.model('Delivery', DeliverySchema);
 module.exports = DeliverySchema;

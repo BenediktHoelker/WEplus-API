@@ -20,4 +20,5 @@ var DeviationTypeSchema = new Schema({
         required: 'Name cannot be blank'
     }
 });
+mongoose.model('DeviationType', DeviationTypeSchema);
 module.exports = DeviationTypeSchema;

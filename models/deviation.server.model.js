@@ -25,4 +25,5 @@ var DeviationSchema = new Schema({
         required: 'Gravity cannot be blank'
     }
 });
+mongoose.model('Deviation', DeviationSchema);
 module.exports = DeviationSchema;
