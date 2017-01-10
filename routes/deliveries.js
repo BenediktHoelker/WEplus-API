@@ -12,7 +12,7 @@ app.get('/', function (request, response) {
 
 deliveriesRouter.route('/api/deliveries')
   .get(Deliveries.list)
-  .post(jsonParser, Deliveries.list);
+  .post(jsonParser, Deliveries.submit);
 
   // .delete(function (request, response) {
   //   let delivery = request.params.name;
