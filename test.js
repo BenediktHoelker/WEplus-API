@@ -48,7 +48,7 @@ describe('Create Mongoose Connection', function () {
 });
 
 var createMongooseConnection = function () {
-  mongoose.connect('mongodb://localhost/test');
+  mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm/api/deliveries');
   var db = mongoose.connection;
 }
 
