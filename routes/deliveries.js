@@ -1,5 +1,5 @@
 let bodyParser = require('body-parser');
-let Deliveries = require('../controllers/deliveries.controller');
+let deliveries = require('../controllers/deliveries.controller');
 let express = require('express');
 let mongoose = require('mongoose');
 let app = express();
@@ -11,17 +11,8 @@ app.get('/', function (request, response) {
 });
 
 deliveriesRouter.route('/api/deliveries')
-  .get(Deliveries.list)
-  .post(jsonParser, Deliveries.submit);
-
-  // .delete(function (request, response) {
-  //   let delivery = request.params.name;
-  //   if (city) {
-  //     client.hdel('cities', city, function (error) {
-  //       if (error) throw error;
-  //       response.sendStatus(204);
-  //     });
-  //   }
-  // });
+  .get(deliveries.list)
+  .post(jsonParser, deliveries.submit)
+  .delete(deliveries.delete);
 
 module.exports = deliveriesRouter;

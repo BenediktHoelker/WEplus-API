@@ -7,12 +7,13 @@ app.use(express.static('public'));
 app.use(function (request, result, next) {
   //Website you wish to allow to connect
   result.setHeader('Access-Control-Allow-Origin', '*');
-  result.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  result.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
   result.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
   next();
 });
 
-mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
+mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 

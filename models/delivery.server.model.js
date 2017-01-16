@@ -11,6 +11,9 @@ var YardDeliverySchema = require('./yard-delivery.server.model');
  * Delivery Schema
  */
 var DeliverySchema = new Schema({
+    id: {
+        type: Number
+    },
     created: {
         type: Date,
         default: Date.now
