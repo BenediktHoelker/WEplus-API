@@ -5,8 +5,8 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-var DeviationSchema = require('./deviation.server.model');
-var YardDeliverySchema = require('./yard-delivery.server.model');
+var DeviationSchema = require('./deviation.model');
+var YardDeliverySchema = require('./yard-delivery.model');
 /**
  * Delivery Schema
  */

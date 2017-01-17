@@ -5,7 +5,6 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-var DeviationTypeSchema = require('./deviation-type.server.model');
 
 /**
  * Deviation Schema
@@ -16,7 +15,7 @@ var DeviationSchema = new Schema({
         default: Date.now
     },
     type: {
-        type: DeviationTypeSchema,
+        type: String,
         required: 'Type cannot be blank'
     },
     gravity: {

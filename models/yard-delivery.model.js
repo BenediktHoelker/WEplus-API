@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-var YardSchema = require('./yard.server.model');
+var YardSchema = require('./yard.model');
 
 /**
  * YardDelivery Schema
