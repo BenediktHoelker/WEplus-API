@@ -12,8 +12,8 @@ app.use(function (request, result, next) {
   next();
 });
 
-mongoose.connect('mongodb://localhost/test');
-// mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
+// mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
