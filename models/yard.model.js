@@ -12,8 +12,7 @@ var mongoose = require('mongoose'),
 var YardSchema = new Schema({
     id: {
         type: Number,
-        default: '',
-        required: 'Quantity cannot be blank'
+        default: ''
     },
     name: {
         type: String,

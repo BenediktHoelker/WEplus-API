@@ -18,10 +18,10 @@ var DeliverySchema = new Schema({
         type: Date,
         default: Date.now
     },
-    timeSlotBegin: {
+    timeslotBegin: {
         type: Date,
     },
-    timeSlotEnd: {
+    timeslotEnd: {
         type: Date,
     },
     carrier: {
@@ -39,11 +39,11 @@ var DeliverySchema = new Schema({
         type: Boolean,
         default: false
     },
-    quantity: {
-        type: Number,
-        default: '',
-        required: 'Quantity cannot be blank'
-    },
+    // quantity: {
+    //     type: Number,
+    //     default: '',
+    //     required: 'Quantity cannot be blank'
+    // },
     supplier: {
         type: String,
         default: '',

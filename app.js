@@ -1,7 +1,11 @@
 var express = require('express');
-var app = express();
 let mongoose = require('mongoose');
+var seeder = require('mongoose-seed');
+var deliveriesSeed = require('./seeds/deliveries.seed');
+var deviationTypesSeed = require('./seeds/deviation-types.seed');
+var yardsSeed = require('./seeds/yards.seed');
 
+var app = express();
 app.use(express.static('public'));
 
 app.use(function (request, result, next) {
@@ -12,8 +16,33 @@ app.use(function (request, result, next) {
   next();
 });
 
-// mongoose.connect('mongodb://localhost/test');
-mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
+// Connect to MongoDB via Mongoose 
+// seeder.connect('mongodb://localhost/test', function () {
+
+//   // Load Mongoose models 
+//   seeder.loadModels([
+//     'models/delivery.model.js',
+//     'models/deviation.model.js',
+//     'models/deviation-type.model.js',
+//     'models/yard.model.js',
+//     'models/yard-delivery.model.js'
+//   ]);
+
+//   // Clear specified collections 
+//   seeder.clearModels(['Delivery', 'Deviation', 'DeviationType', 'Yard', 'YardDelivery'], function () {
+
+//     // Callback to populate DB once collections have been cleared 
+//     seeder.populateModels(deliveriesSeed, function () {
+//       seeder.populateModels(deviationTypesSeed, function () {
+//         seeder.populateModels(yardsSeed, function(){});
+//       });
+//     });
+//   });
+// });
+
+mongoose.connect('mongodb://localhost/test');
+
+// mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
