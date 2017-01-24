@@ -17,7 +17,7 @@ app.use(function (request, result, next) {
 });
 
 // Connect to MongoDB via Mongoose 
-// seeder.connect('mongodb://localhost/test', function () {
+// seeder.connect('mongodb://localhost/dev', function () {
 
 //   // Load Mongoose models 
 //   seeder.loadModels([
@@ -40,15 +40,15 @@ app.use(function (request, result, next) {
 //   });
 // });
 
-mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://localhost/dev');
 
-// mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+// // mongoose.connect('mongodb://heroku_0f2332mm:c14h68629n8o2kal3qu8k08cpb@ds113938.mlab.com:13938/heroku_0f2332mm');
+// let db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
 
-var deliveries = require('./routes/deliveries');
-var deviationTypes = require('./routes/deviation-types');
-var yards = require('./routes/yards');
+var deliveries = require('./routes/deliveries.routes');
+var deviationTypes = require('./routes/deviation-types.routes');
+var yards = require('./routes/yards.routes');
 
 //for testing the route has to be '/', for DEV_ENV it has to be '/api/deliveries'
 app.use('/', deliveries);

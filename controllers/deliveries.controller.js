@@ -4,7 +4,9 @@ let mongoose = require('mongoose'),
 
 exports.list = function (request, response) {
 	Delivery.find(function (err, deliveries) {
-		if (err) return console.error(err);
+		if (err) {
+			return console.error(err)
+		};
 		response.json(deliveries);
 	});
 }
@@ -27,19 +29,21 @@ exports.submit = function (request, response) {
 
 	Delivery.findOneAndUpdate(query, submittedDelivery, { upsert: true, new: true }, function (err, doc) {
 		if (err) return response.send(500, ({ error: err }));
-		return response.json(doc);
+		response.status(201);
+		response.json(doc);
 	});
 }
 
 exports.delete = function (request, response) {
 	let delivery = Delivery.findById(request.query._id);
+	console.log(request.query._id);
 	Delivery.findByIdAndRemove(request.query._id, function (err) {
 		if (err) {
-			return response.status(400).send({
+			response.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			return response.json(request.query._id);
+			response.json(request.query._id);
 		}
 	});
 }
