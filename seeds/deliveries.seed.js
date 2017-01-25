@@ -1,4 +1,4 @@
-module.exports = seedDeliveries = [
+let seedDeliveries = [
   {
     'model': 'Delivery',
     'documents':
@@ -32,4 +32,6 @@ module.exports = seedDeliveries = [
     { "timeslotBegin": "2017-01-17T21:30:00Z", "timeslotEnd": "2017-01-17T22:00:00Z", "carrier": "Dachser", "supplier": "Magneti Marelli", "yardDeliveries": [{ "quantity": 0, "yard": { "name": "Yard 1" } }, { "quantity": 0, "yard": { "name": "Yard 2" } }, { "quantity": 0, "yard": { "name": "Yard 3" } }, { "quantity": 0, "yard": { "name": "Express" } }] },
     { "timeslotBegin": "2017-01-17T22:00:00Z", "timeslotEnd": "2017-01-17T22:30:00Z", "carrier": "Rhenus", "supplier": "Hitachi", "yardDeliveries": [{ "quantity": 0, "yard": { "name": "Yard 1" } }, { "quantity": 0, "yard": { "name": "Yard 2" } }, { "quantity": 0, "yard": { "name": "Yard 3" } }, { "quantity": 0, "yard": { "name": "Express" } }] }]
   }
-]
+];
+
+module.exports = seedDeliveries;

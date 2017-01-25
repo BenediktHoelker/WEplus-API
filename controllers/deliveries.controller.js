@@ -1,6 +1,4 @@
-let mongoose = require('mongoose'),
-	DeliverySchema = require('../models/delivery.model'),
-	Delivery = mongoose.model('Delivery', DeliverySchema);
+let Delivery = require('../models/delivery.model');
 
 exports.list = function (request, response) {
 	Delivery.find(function (err, deliveries) {
@@ -18,9 +16,9 @@ exports.submit = function (request, response) {
 	* (otherwise mongoose would create _id=null
 	*/
 	let query = { _id: submittedDelivery._id };
-	if (!query._id) {
-		query._id = new mongoose.mongo.ObjectID();
-	}
+	// if (!query._id) {
+	// 	query._id = new mongoose.mongo.ObjectID();
+	// }
 
 	if (!submittedDelivery.supplier || !submittedDelivery.carrier) {
 		response.sendStatus(400);
@@ -36,7 +34,6 @@ exports.submit = function (request, response) {
 
 exports.delete = function (request, response) {
 	let delivery = Delivery.findById(request.query._id);
-	console.log(request.query._id);
 	Delivery.findByIdAndRemove(request.query._id, function (err) {
 		if (err) {
 			response.status(400).send({

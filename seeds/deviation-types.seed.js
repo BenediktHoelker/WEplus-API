@@ -1,4 +1,4 @@
-module.exports = seedDeviationTypes = [
+let seedDeviationTypes = [
   {
     'model': 'DeviationType',
     'documents': [
@@ -16,4 +16,6 @@ module.exports = seedDeviationTypes = [
       }
     ]
   }
-]
+];
+
+module.exports = seedDeviationTypes;

@@ -1,4 +1,4 @@
-module.exports = seedYards = [
+let seedYards = [
   {
     'model': 'Yard',
     'documents': [
@@ -24,4 +24,6 @@ module.exports = seedYards = [
       }
     ]
   }
-]
+];
+
+module.exports = seedYards;

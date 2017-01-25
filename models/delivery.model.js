@@ -52,5 +52,4 @@ var DeliverySchema = new Schema({
     },
     yardDeliveries: [YardDeliverySchema]
 });
-mongoose.model('Delivery', DeliverySchema);
-module.exports = DeliverySchema;
+module.exports = mongoose.model('Delivery', DeliverySchema);
