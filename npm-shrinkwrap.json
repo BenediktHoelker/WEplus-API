@@ -448,7 +448,7 @@
     },
     "bluebird": {
       "version": "2.10.2",
-      "from": "bluebird@2.10.2",
+      "from": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz",
       "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
     },
     "body-parser": {
@@ -536,6 +536,12 @@
           "dev": true
         }
       }
+    },
+    "chance": {
+      "version": "1.0.4",
+      "from": "chance@>=1.0.4 <2.0.0",
+      "resolved": "https://registry.npmjs.org/chance/-/chance-1.0.4.tgz",
+      "dev": true
     },
     "chokidar": {
       "version": "1.6.1",
@@ -932,6 +938,18 @@
       "version": "0.3.2",
       "from": "extglob@>=0.3.1 <0.4.0",
       "resolved": "https://registry.npmjs.org/extglob/-/extglob-0.3.2.tgz",
+      "dev": true
+    },
+    "factory-girl": {
+      "version": "4.0.0-beta.7",
+      "from": "factory-girl@latest",
+      "resolved": "https://registry.npmjs.org/factory-girl/-/factory-girl-4.0.0-beta.7.tgz",
+      "dev": true
+    },
+    "faker": {
+      "version": "3.1.0",
+      "from": "faker@latest",
+      "resolved": "https://registry.npmjs.org/faker/-/faker-3.1.0.tgz",
       "dev": true
     },
     "fd-slicer": {

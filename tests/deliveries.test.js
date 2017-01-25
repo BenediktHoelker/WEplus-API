@@ -10,6 +10,8 @@ import deliveries from './deliveries.test-data';
 import Delivery from '../models/delivery.model';
 import { clearDB, createDB, destroyDB, deleteModels, fillDB } from './test.helper';
 
+let shoul = chai.should();
+
 describe('Deliveries', function () {
   before((done) => {
     createDB(() => {
@@ -79,9 +81,8 @@ describe('Deliveries', function () {
   });
 
   describe('Deleting a delivery', function () {
-    var query = Delivery.where({ carrier: 'Schenker' });
     it('should return status code 200', function (done) {
-      query.findOne((err, delivery) => {
+      Delivery.findOne((err, delivery) => {
         request(app)
           .delete('/api/deliveries')
           .query({ _id: delivery._id.toString() })
@@ -90,18 +91,21 @@ describe('Deliveries', function () {
     });
 
     it('should delete delivery from DB', done => {
-      Delivery.findOne({ carrier: 'Deutsche Post' }, (err, deliveryToRemain) => {
-        Delivery.findOne({ carrier: 'Schenker' }, (err, deliveryToBeDeleted) => {
-          request(app)
-            .delete('/api/deliveries')
-            .query({ _id: deliveryToBeDeleted._id.toString() })
-            .end((err, result) => {
-              Delivery.findOne((err, deliveryAfter) => {
-                assert.equal(deliveryToRemain._id.toString(), deliveryAfter._id.toString());
-                done();
-              });
+      let countBefore;
+      let countAfter;
+
+      Delivery.find((err, deliveriesBefore) => {
+        countBefore = deliveriesBefore.length;
+        request(app)
+          .delete('/api/deliveries')
+          .query({ _id: deliveriesBefore[0]._id.toString() })
+          .then((err, result) => {
+            Delivery.find((err, deliveriesAfter) => {
+              countAfter = deliveriesAfter.length;
+              countAfter.should.equal(countBefore -1);
+              done();
             });
-        });
+          });
       });
     });
   });
