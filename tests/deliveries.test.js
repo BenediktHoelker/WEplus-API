@@ -6,11 +6,11 @@ import sinon from 'sinon';
 
 import app from '../app';
 import config from '../config/config';
-import deliveries from './deliveries.test-data';
 import Delivery from '../models/delivery.model';
+import factory from './factory';
 import { clearDB, createDB, destroyDB, deleteModels, fillDB } from './test.helper';
 
-let shoul = chai.should();
+let should = chai.should();
 
 describe('Deliveries', function () {
   before((done) => {
@@ -58,18 +58,19 @@ describe('Deliveries', function () {
   });
 
   describe('Creating new deliveries', function () {
-    var delivery = { carrier: 'DB', supplier: 'Continental' };
+    var deliveryToSubmit;
+    factory.build('delivery').then(delivery => deliveryToSubmit = delivery);
     var invalidDelivery = { carrier: '', supplier: 'Continental' };
     it('should return a 201 status code', function (done) {
       request(app)
         .post('/api/deliveries')
-        .send(delivery)
+        .send(deliveryToSubmit)
         .expect(201, done);
     });
     it('should return the delivery carrier', function (done) {
       request(app)
         .post('/api/deliveries')
-        .send(delivery)
+        .send(deliveryToSubmit)
         .expect(/carrier/i, done);
     });
     it('should validate delivery carrier and supplier', function (done) {
@@ -77,6 +78,22 @@ describe('Deliveries', function () {
         .post('/api/deliveries')
         .send(invalidDelivery)
         .expect(400, done);
+    });
+  });
+
+  describe('Updating a delivery', () => {
+    it('should return status code 201', () => {
+      var deliveryToSubmit;
+      Delivery.findOne((err, delivery) => {
+        deliveryToSubmit = delivery;
+      }).then(() => {
+      deliveryToSubmit.carrier = "TestCarrier";
+        request(app)
+          .post('/api/deliveries')
+          .send(deliveryToSubmit)
+          .expect(deliveryToSubmit)
+          .expect(200, done);
+      });
     });
   });
 
@@ -102,7 +119,7 @@ describe('Deliveries', function () {
           .then((err, result) => {
             Delivery.find((err, deliveriesAfter) => {
               countAfter = deliveriesAfter.length;
-              countAfter.should.equal(countBefore -1);
+              countAfter.should.equal(countBefore - 1);
               done();
             });
           });

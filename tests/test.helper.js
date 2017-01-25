@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import config from '../config/config';
 
 import Delivery from '../models/delivery.model';
-import deliveries from './deliveries.test-data';
 import factory from './factory';
 
 mockgoose(mongoose);
